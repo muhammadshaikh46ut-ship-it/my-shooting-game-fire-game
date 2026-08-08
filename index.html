@@ -1,73 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Simple Shooting Game Logic</title>
-  
-  <!-- CSS: Design and layout of the game -->
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      background-color: #1a1a1a;
-      color: white;
-    }
-    .game-box {
-      border: 2px solid #ff4500;
-      padding: 20px;
-      display: inline-block;
-      margin-top: 30px;
-      border-radius: 10px;
-      background-color: #2b2b2b;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 18px;
-      background-color: #ff4500;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #e03e00;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Shooting Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .game-card {
+            border: 2px solid #ff4500;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 350px;
+            margin: auto;
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
+        }
+        .btn {
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- HTML: On-screen elements -->
-  <div class="game-box">
-    <h1>🔥 Mini Fire Game Logic 🔥</h1>
-    
-    <h2>Enemy Health: <span id="enemyHealth">100</span>%</h2>
-    
-    <h3 id="gameMessage">Enemy is ahead! Shoot now!</h3>
-
-    <button onclick="fireBullet()">🎯 FIRE</button>
-  </div>
-
-  <!-- JAVASCRIPT: Game mechanics and logic -->
-  <script>
-    // 1. Initial enemy health set to 100
-    let health = 100;
-
-    // 2. This function triggers every time the player clicks the FIRE button
-    function fireBullet() {
-      if (health > 0) {
-        // Reduces health by 20 on each hit
-        health = health - 20; 
+    <div class="game-card">
+        <h2>🔥 Fire Shooter 🔥</h2>
         
-        // Updates the new health value on screen
-        document.getElementById("enemyHealth").innerText = health;
+        <div class="stats">
+            <div>Score: <span id="score">0</span></div>
+            <div>Enemy HP: <span id="hp">100</span>%</div>
+        </div>
 
-        // Triggers victory message when health reaches 0 or less
-        if (health <= 0) {
-          document.getElementById("enemyHealth").innerText = 0;
-          document.getElementById("gameMessage").innerText = "🎉 Booyah! Enemy defeated!";
+        <p id="message">Enemy is ahead! Shoot now!</p>
+
+        <button id="fireBtn" class="btn" onclick="shoot()">🎯 FIRE</button>
+        <button id="restartBtn" class="btn" onclick="resetGame()" style="display:none; background-color: #28a745;">🔄 Restart</button>
+    </div>
+
+    <script>
+        let hp = 100;
+        let score = 0;
+
+        function shoot() {
+            if (hp > 0) {
+                hp -= 10;
+                score += 10;
+                document.getElementById("hp").innerText = hp;
+                document.getElementById("score").innerText = score;
+
+                if (hp <= 0) {
+                    document.getElementById("message").innerText = "🎉 You defeated the enemy!";
+                    document.getElementById("fireBtn").style.display = "none";
+                    document.getElementById("restartBtn").style.display = "inline-block";
+                }
+            }
         }
-      }
-    }
-  </script>
+
+        function resetGame() {
+            hp = 100;
+            score = 0;
+            document.getElementById("hp").innerText = hp;
+            document.getElementById("score").innerText = score;
+            document.getElementById("message").innerText = "Enemy is ahead! Shoot now!";
+            document.getElementById("fireBtn").style.display = "inline-block";
+            document.getElementById("restartBtn").style.display = "none";
+        }
+    </script>
 
 </body>
 </html>
+
