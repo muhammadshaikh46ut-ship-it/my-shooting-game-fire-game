@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire Shooting Game</title>
+    <title>India Rank Ludo Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #121212;
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
         }
         .game-card {
             border: 2px solid #ff4500;
             border-radius: 12px;
             padding: 20px;
-            max-width: 350px;
+            max-width: 380px;
             margin: auto;
             background-color: #1e1e1e;
             box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
@@ -35,60 +35,62 @@
         .btn:active {
             transform: scale(0.95);
         }
-        .stats {
+        .leaderboard {
+            background-color: #2b2b2b;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .leaderboard h3 {
+            text-align: center;
+            color: #ffcc00;
+            margin-top: 0;
+        }
+        .rank-item {
             display: flex;
-            justify-content: space-around;
-            margin-bottom: 15px;
-            font-size: 16px;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #444;
+            font-size: 15px;
         }
     </style>
 </head>
 <body>
 
     <div class="game-card">
-        <h2>🔥 Fire Shooter 🔥</h2>
+        <h2>🎲 Ludo India King 🎲</h2>
         
-        <div class="stats">
-            <div>Score: <span id="score">0</span></div>
-            <div>Enemy HP: <span id="hp">100</span>%</div>
+        <div>
+            <p>Dice Number: <span id="diceValue" style="font-size: 24px; color: #ffcc00; font-weight: bold;">-</span></p>
+            <p>Your Score: <span id="score">0</span></p>
         </div>
 
-        <p id="message">Enemy is ahead! Shoot now!</p>
+        <button class="btn" onclick="rollDice()">🎲 Roll Dice</button>
 
-        <button id="fireBtn" class="btn" onclick="shoot()">🎯 FIRE</button>
-        <button id="restartBtn" class="btn" onclick="resetGame()" style="display:none; background-color: #28a745;">🔄 Restart</button>
+        <div class="leaderboard">
+            <h3>🏆 India Leaderboard 🏆</h3>
+            <div class="rank-item"><span>1. Rahul (Delhi)</span> <span>500 pts</span></div>
+            <div class="rank-item"><span>2. Amit (Mumbai)</span> <span>420 pts</span></div>
+            <div class="rank-item"><span>3. Priya (Bangalore)</span> <span>350 pts</span></div>
+            <div class="rank-item" style="color: #00ffcc; font-weight: bold;">
+                <span>👑 You (Top 1)</span> <span id="myRankScore">0 pts</span>
+            </div>
+        </div>
     </div>
 
     <script>
-        let hp = 100;
         let score = 0;
 
-        function shoot() {
-            if (hp > 0) {
-                hp -= 10;
-                score += 10;
-                document.getElementById("hp").innerText = hp;
-                document.getElementById("score").innerText = score;
-
-                if (hp <= 0) {
-                    document.getElementById("message").innerText = "🎉 You defeated the enemy!";
-                    document.getElementById("fireBtn").style.display = "none";
-                    document.getElementById("restartBtn").style.display = "inline-block";
-                }
-            }
-        }
-
-        function resetGame() {
-            hp = 100;
-            score = 0;
-            document.getElementById("hp").innerText = hp;
+        function rollDice() {
+            let dice = Math.floor(Math.random() * 6) + 1;
+            document.getElementById("diceValue").innerText = dice;
+            
+            score += dice * 10;
             document.getElementById("score").innerText = score;
-            document.getElementById("message").innerText = "Enemy is ahead! Shoot now!";
-            document.getElementById("fireBtn").style.display = "inline-block";
-            document.getElementById("restartBtn").style.display = "none";
+            document.getElementById("myRankScore").innerText = score + " pts";
         }
     </script>
 
 </body>
 </html>
-
