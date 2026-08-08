@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Shooting Game Logic</title>
+  
+  <!-- CSS: Design and layout of the game -->
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: white;
+    }
+    .game-box {
+      border: 2px solid #ff4500;
+      padding: 20px;
+      display: inline-block;
+      margin-top: 30px;
+      border-radius: 10px;
+      background-color: #2b2b2b;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e03e00;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HTML: On-screen elements -->
+  <div class="game-box">
+    <h1>🔥 Mini Fire Game Logic 🔥</h1>
+    
+    <h2>Enemy Health: <span id="enemyHealth">100</span>%</h2>
+    
+    <h3 id="gameMessage">Enemy is ahead! Shoot now!</h3>
+
+    <button onclick="fireBullet()">🎯 FIRE</button>
+  </div>
+
+  <!-- JAVASCRIPT: Game mechanics and logic -->
+  <script>
+    // 1. Initial enemy health set to 100
+    let health = 100;
+
+    // 2. This function triggers every time the player clicks the FIRE button
+    function fireBullet() {
+      if (health > 0) {
+        // Reduces health by 20 on each hit
+        health = health - 20; 
+        
+        // Updates the new health value on screen
+        document.getElementById("enemyHealth").innerText = health;
+
+        // Triggers victory message when health reaches 0 or less
+        if (health <= 0) {
+          document.getElementById("enemyHealth").innerText = 0;
+          document.getElementById("gameMessage").innerText = "🎉 Booyah! Enemy defeated!";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
